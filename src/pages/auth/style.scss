@@ -1,0 +1,10 @@
+@import "../../constants/colors";
+
+.Home {
+  &_title {
+    text-align: center;
+    color: $color-white;
+  }
+
+  &_form {}
+}
