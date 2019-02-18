@@ -1,9 +1,11 @@
 import Nav from './nav/nav'
 import NavBrand from './navBrand/navBrand'
-import NavLinks from './navLinks/NavLinks'
+import NavBarStart from './navbarStart/navbarStart'
+import NavBarEnd from './navBarEnd/navBarEnd'
 
 export {
     Nav,
     NavBrand,
-    NavLinks
+    NavBarEnd,
+    NavBarStart
 }
