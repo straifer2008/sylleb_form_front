@@ -1,29 +1,20 @@
-import React from "react";
-import {TextInput} from "../../components";
-import Button from "../../components/button/button";
-import './style.scss'
+import React from 'react';
 import {compose, withState} from "recompose";
-import {connect} from "react-redux";
-import { userRegistration } from "../../state/user/operations";
+import TextInput from "../../components/textinput/textInput";
+import Button from "../../components/button/button";
+import connect from "react-redux/es/connect/connect";
+import {userAuth} from "../../state/user/operations";
 
-const Auth = ({
-                  userRegistration,
-                  username,
-                  email,
-                  setUsername,
-                  setPassword,
-                  setEmail,
-                  password
-}) => (
-    <div className="Auth">
-        <h1 className={'Auth_title'}>Register</h1>
+const Login = ({
+                   userAuth,
+                   email,
+                   setPassword,
+                   setEmail,
+                   password
+               }) => (
+    <div className={'login'}>
+        <h1 className={'Auth_title'}>Login</h1>
         <div className={'Auth_form'}>
-            <TextInput name={'username'}
-                       label={'Your name'}
-                       placeholder={'Enter your name'}
-                       onChange={e => setUsername(e.target.value)}
-                       inputValue={username}
-            />
             <TextInput name={'email'}
                        label={'Your email'}
                        placeholder={'Enter your email'}
@@ -38,17 +29,17 @@ const Auth = ({
                        onChange={e => setPassword(e.target.value)}
                        inputValue={password}
             />
-            <Button text={'Register'}
+            <Button text={'Login'}
                     type={'success'}
                     submit={true}
-                    click={() => userRegistration({username, email, password })}
+                    click={() => userAuth({email, password })}
             />
         </div>
     </div>
 );
 
 const mapDispatchToProps = ({
-    userRegistration
+    userAuth
 });
 
 const mapStateToProps = (state) => ({
@@ -57,8 +48,8 @@ const mapStateToProps = (state) => ({
 
 const enhance = compose(
     connect(mapStateToProps, mapDispatchToProps),
-    withState('username', 'setUsername', ''),
     withState('email', 'setEmail', ''),
     withState('password', 'setPassword', ''),
 );
-export default enhance(Auth);
+
+export default enhance(Login);

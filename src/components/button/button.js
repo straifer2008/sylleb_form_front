@@ -9,17 +9,18 @@ class Button extends Component {
             text,
             type,
             link,
-            submit
+            submit,
+            click
         } = this.props;
         return (
             <div className={['Button', customClass].join(' ')}>
                 {
                     submit ?
-                        <button className={['Button_link', type ? `Button_link-${type}` : 'Button_link-blue'].join(' ')}
+                        <button onClick={click} className={['Button_link', type ? `Button_link-${type}` : 'Button_link-blue'].join(' ')}
                                 type='submit'>
                             {text}
                         </button> :
-                        <a className={['Button_link', type ? `Button_link-${type}` : 'Button_link-blue'].join(' ')}
+                        <a onClick={click} className={['Button_link', type ? `Button_link-${type}` : 'Button_link-blue'].join(' ')}
                            href={`${link} ? ${link} : '#'`}>
                             {text}
                         </a>

@@ -8,10 +8,17 @@ class NavBarEnd extends Component {
             <div className="navbar-end">
                 <div className="navbar-item">
                     <div className="buttons">
-                        <Link to='/register' className="button is-primary">
-                            <strong>Register</strong>
-                        </Link>
-                        <Link to='/login' className="button is-light">Log in</Link>
+                        {
+                            localStorage.getItem('authToken') ?
+                                <Link to='/login' className="button is-light">Log in</Link>
+                                :
+                                <>
+                                    <Link to='/login' className="button is-light">Log in</Link>
+                                    <Link to='/register' className="button is-primary">
+                                        <strong>Register</strong>
+                                    </Link>
+                                </>
+                        }
                     </div>
                 </div>
             </div>

@@ -1,15 +1,10 @@
-import React, { Component } from "react";
-import { Header } from "../../containers";
+import React from "react";
+import './styles.scss';
 
-class Home extends Component {
-    render() {
-        return (
-          <div className="Home">
-              <Header/>
-              Home component load
-          </div>
-        );
-    }
-}
+const Home = () => (
+  <div className="Home">
+      Home component load
+  </div>
+);
 
 export default Home;

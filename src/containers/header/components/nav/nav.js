@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import {compose} from "recompose";
+import React from 'react';
+import {compose, withState} from "recompose";
 import {NavBrand, NavBarEnd, NavBarStart} from "../index";
 
-class Nav extends Component {
-    render() {
-        return (
-            <nav className="navbar" role="navigation" aria-label="main navigation">
-                <NavBrand/>
+const Nav = ({
+                 showMobileMenu,
+                 toggleBurgerMenu
+             }) => (
+    <nav className="navbar" role="navigation" aria-label="main navigation">
+        <NavBrand click={ () => toggleBurgerMenu(showMobileMenu = !showMobileMenu) }/>
 
-                <div className="navbar-menu">
-                    <NavBarStart/>
-                    <NavBarEnd/>
-                </div>
-            </nav>
-        );
-    }
-}
+        <div className={!showMobileMenu ? "navbar-menu" : 'navbar-menu-open'}>
+            <NavBarStart/>
+            <NavBarEnd/>
+        </div>
+    </nav>
+);
 
-const enhance = compose();
+const enhance = compose(
+    withState('showMobileMenu', 'toggleBurgerMenu', false)
+);
 export default enhance(Nav);
