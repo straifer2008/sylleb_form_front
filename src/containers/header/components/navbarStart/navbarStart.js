@@ -5,7 +5,10 @@ import {Link} from "react-router-dom";
 
 const NavBarStart = () => (
     <div className="navbar-start">
-        <Link to='/' className="navbar-item">Home</Link>
+        {
+            localStorage.getItem('authToken') ?
+                <Link to='/home' className="navbar-item">Home</Link> : null
+        }
     </div>
 );
 

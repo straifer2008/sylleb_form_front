@@ -1,41 +1,61 @@
 import React from 'react';
 import './styles.scss';
-import {Provider} from "react-redux";
-import { ConnectedRouter } from 'connected-react-router';
-import store, { history } from '../../store';
-import { Route, Switch } from 'react-router-dom';
+import {connect} from "react-redux";
+import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import { Home, Auth, Login } from '../../pages'
-import { compose } from 'recompose';
+import {compose, lifecycle} from 'recompose';
 import { Header } from "../../containers";
-import {Loader} from "../index";
+import {ConfirmRegister, Page404} from "../index";
+import {checkIsUserAuth} from "../../state/user/operations";
 
-class App extends React.Component {
-    render() {
-        return (
-            <Provider store={store}>
-                <ConnectedRouter history={history}>
-                    <React.Fragment>
-                        <Header/>
-                        <Switch>
-                            { localStorage.getItem('authToken') ? (
-                                <>
-                                    <Route path="/register" component={Auth} />
-                                </>
-                            ) :
-                                <>
-                                    <Route path="/register" component={Auth} />
-                                    <Route path="/login" component={Login} />
-                                    <Route exact path="/" component={Home} />
-                                    <Route exact path="/confirm-register/:token" component={Loader} />
-                                </>
-                            }
-                        </Switch>
-                    </React.Fragment>
-                </ConnectedRouter>
-            </Provider>
-        );
-    }
-}
+const App = ({userIsLogged, location}) => (
+    <React.Fragment>
+        <Header/>
+        {userIsLogged ? (
+            <Switch>
+                <Route
+                    exact
+                    strict
+                    path="/:url*"
+                    render={() => location.pathname.slice(-1) !== '/' && <Redirect to={`${location.pathname}/`} />}
+                />
+                <Route path="/home" component={Home} />
+                <Route component={Page404} />
+                <Redirect from='/' to='/home' />
+            </Switch>
 
-const enhance = compose();
+            ) : (
+                <Switch>
+                    <Route
+                        exact
+                        strict
+                        path="/:url*"
+                        render={() => location.pathname.slice(-1) !== '/' && <Redirect to={`${location.pathname}/`} />}
+                    />
+                    <Route path="/register" component={Auth} />
+                    <Route path="/login" component={Login} />
+                    <Route path="/confirm-register/:token" component={ConfirmRegister} />
+                    <Route component={Page404} />
+                </Switch>
+        )}
+    </React.Fragment>
+);
+
+const mapStateToProps = (state) => ({
+    userIsLogged: state.authReducer.userIsLogged
+});
+
+const mapDispatchToProps = ({
+    checkIsUserAuth
+});
+
+const enhance = compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withRouter,
+    lifecycle({
+        componentDidMount() {
+            this.props.checkIsUserAuth();
+        }
+    })
+);
 export default enhance(App);

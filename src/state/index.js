@@ -4,7 +4,7 @@ import authReducer from "./user/authReduser";
 
 const rootReducer = history => combineReducers({
     router: connectRouter(history),
-    auth: authReducer
+    authReducer
 });
 
 export default rootReducer;

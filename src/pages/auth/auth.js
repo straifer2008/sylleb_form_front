@@ -1,5 +1,5 @@
 import React from "react";
-import {TextInput} from "../../components";
+import {TextInput, Loader} from "../../components";
 import Button from "../../components/button/button";
 import './style.scss'
 import {compose, withState} from "recompose";
@@ -13,37 +13,42 @@ const Auth = ({
                   setUsername,
                   setPassword,
                   setEmail,
-                  password
+                  password,
+                  loading
 }) => (
     <div className="Auth">
         <h1 className={'Auth_title'}>Register</h1>
-        <div className={'Auth_form'}>
-            <TextInput name={'username'}
-                       label={'Your name'}
-                       placeholder={'Enter your name'}
-                       onChange={e => setUsername(e.target.value)}
-                       inputValue={username}
-            />
-            <TextInput name={'email'}
-                       label={'Your email'}
-                       placeholder={'Enter your email'}
-                       type={'email'}
-                       onChange={e => setEmail(e.target.value)}
-                       inputValue={email}
-            />
-            <TextInput name={'password'}
-                       label={'Your password'}
-                       placeholder={'Enter your password'}
-                       type={'email'}
-                       onChange={e => setPassword(e.target.value)}
-                       inputValue={password}
-            />
-            <Button text={'Register'}
-                    type={'success'}
-                    submit={true}
-                    click={() => userRegistration({username, email, password })}
-            />
-        </div>
+        {
+            !loading ?
+                <div className={'Auth_form'}>
+                    <TextInput name={'username'}
+                               label={'Your name'}
+                               placeholder={'Enter your name'}
+                               onChange={e => setUsername(e.target.value)}
+                               inputValue={username}
+                    />
+                    <TextInput name={'email'}
+                               label={'Your email'}
+                               placeholder={'Enter your email'}
+                               type={'email'}
+                               onChange={e => setEmail(e.target.value)}
+                               inputValue={email}
+                    />
+                    <TextInput name={'password'}
+                               label={'Your password'}
+                               placeholder={'Enter your password'}
+                               type={'email'}
+                               onChange={e => setPassword(e.target.value)}
+                               inputValue={password}
+                    />
+                    <Button text={'Register'}
+                            type={'success'}
+                            submit={true}
+                            click={() => userRegistration({username, email, password })}
+                    />
+                </div> :
+                <Loader/>
+        }
     </div>
 );
 
@@ -52,7 +57,7 @@ const mapDispatchToProps = ({
 });
 
 const mapStateToProps = (state) => ({
-
+    loading: state.authReducer.loading
 });
 
 const enhance = compose(

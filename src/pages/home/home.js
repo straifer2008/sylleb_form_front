@@ -1,10 +1,12 @@
 import React from "react";
+import {compose} from "recompose";
 import './styles.scss';
 
 const Home = () => (
   <div className="Home">
-      Home component load
+      <h1>Home component load</h1>
   </div>
 );
 
-export default Home;
+const enhance = compose();
+export default enhance(Home);

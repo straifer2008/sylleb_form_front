@@ -1,19 +1,11 @@
 import React from 'react';
-import {compose, lifecycle} from "recompose";
+import { compose } from "recompose";
 import './styles.scss'
-import { withRouter } from 'react-router';
 
-const Loader = ({size = 200, match}) => (
-    <div className={'loader'} style={{height: size, width: size}}>
-        <input type="hidden" value={match.params.token}/>
-    </div>
+const Loader = ({size = 200}) => (
+    <div className={'loader'} style={{height: size, width: size}} />
 );
 
-const enhance = compose(
-
-    lifecycle({
-        withRouter,
-    })
-);
+const enhance = compose();
 
 export default enhance(Loader)

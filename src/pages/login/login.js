@@ -4,13 +4,16 @@ import TextInput from "../../components/textinput/textInput";
 import Button from "../../components/button/button";
 import connect from "react-redux/es/connect/connect";
 import {userAuth} from "../../state/user/operations";
+import './styles.scss'
 
 const Login = ({
                    userAuth,
-                   email,
                    setPassword,
                    setEmail,
-                   password
+                   setRemember,
+                   email,
+                   password,
+                   remember,
                }) => (
     <div className={'login'}>
         <h1 className={'Auth_title'}>Login</h1>
@@ -29,10 +32,15 @@ const Login = ({
                        onChange={e => setPassword(e.target.value)}
                        inputValue={password}
             />
+            <label className="checkbox">
+                <input type="checkbox" checked={remember} onChange={ e => setRemember(e.target.checked) }/>
+                Remember me
+            </label>
+
             <Button text={'Login'}
                     type={'success'}
                     submit={true}
-                    click={() => userAuth({email, password })}
+                    click={() => userAuth({ email, password, remember })}
             />
         </div>
     </div>
@@ -50,6 +58,7 @@ const enhance = compose(
     connect(mapStateToProps, mapDispatchToProps),
     withState('email', 'setEmail', ''),
     withState('password', 'setPassword', ''),
+    withState('remember', 'setRemember', ''),
 );
 
 export default enhance(Login);

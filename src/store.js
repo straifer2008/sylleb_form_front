@@ -8,12 +8,6 @@ import thunk from 'redux-thunk';
 
 import reducers from './state';
 
-// import { sagasManager } from './utils';
-// import createSagaMiddleware from 'redux-saga';
-// import { requestApi } from './utils/middlewares/sagaRequestApi';
-// const sagaMiddleware = createSagaMiddleware();
-
-
 export const history = createBrowserHistory();
 const epicMiddleware = createEpicMiddleware();
 
@@ -28,7 +22,5 @@ const store = createStore(
         ),
     ),
 );
-
-// sagaMiddleware.run(sagasManager.getRootSaga());
 
 export default store;
