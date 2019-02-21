@@ -6,7 +6,8 @@ const initialState = {
     userIsLogged: false,
     token: null,
     message: null,
-    error: null
+    error: null,
+    notifications: null,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -55,13 +56,70 @@ const authReducer = (state = initialState, action) => {
         case types.USER_LOG_OUT: {
             return {
                 ...state,
-                userIsLogged: false
+                loading: true,
+                userIsLogged: true
+            }
+        }
+        case types.USER_LOG_OUT_RECEIVE: {
+            return {
+                ...state,
+                loading: false,
+                userIsLogged: false,
+                notifications: action.payload
+            }
+        }
+        case types.USER_LOG_OUT_ERROR: {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
             }
         }
         case types.CHECK_USER_IS_AUTH: {
             return {
                 ...state,
                 userIsLogged: action.payload
+            }
+        }
+        case types.RESET_PASSWORD_START: {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+        case types.RESET_PASSWORD_ERROR: {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        }
+        case types.RESET_PASSWORD_RECEIVE: {
+            return {
+                ...state,
+                loading: false,
+                notifications: action.payload
+            }
+        }
+        case types.FORGOT_PASSWORD_START: {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+        case types.FORGOT_PASSWORD_RECEIVE: {
+            return {
+                ...state,
+                loading: false,
+                notifications: action.payload,
+                error: null
+            }
+        }
+        case types.FORGOT_PASSWORD_ERROR: {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
             }
         }
         default: {

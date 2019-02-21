@@ -1,12 +1,24 @@
 import React from "react";
 import {compose} from "recompose";
 import './styles.scss';
+import {connect} from "react-redux";
+import {Loader} from "../../components";
 
-const Home = () => (
+const Home = ({loading}) => (
   <div className="Home">
-      <h1>Home component load</h1>
+      {
+          !loading ?
+              <h1>Home component load</h1> :
+              <Loader/>
+      }
   </div>
 );
 
-const enhance = compose();
+const mapStateToProps = (state) => ({
+    loading: state.authReducer.loading
+});
+
+const enhance = compose(
+    connect(mapStateToProps)
+);
 export default enhance(Home);

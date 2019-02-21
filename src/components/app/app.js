@@ -4,21 +4,15 @@ import {connect} from "react-redux";
 import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import { Home, Auth, Login } from '../../pages'
 import {compose, lifecycle} from 'recompose';
-import { Header } from "../../containers";
+import { Header, ResetPassword } from "../../containers";
 import {ConfirmRegister, Page404} from "../index";
 import {checkIsUserAuth} from "../../state/user/operations";
 
-const App = ({userIsLogged, location}) => (
+const App = ({ userIsLogged }) => (
     <React.Fragment>
         <Header/>
         {userIsLogged ? (
             <Switch>
-                <Route
-                    exact
-                    strict
-                    path="/:url*"
-                    render={() => location.pathname.slice(-1) !== '/' && <Redirect to={`${location.pathname}/`} />}
-                />
                 <Route path="/home" component={Home} />
                 <Route component={Page404} />
                 <Redirect from='/' to='/home' />
@@ -26,15 +20,10 @@ const App = ({userIsLogged, location}) => (
 
             ) : (
                 <Switch>
-                    <Route
-                        exact
-                        strict
-                        path="/:url*"
-                        render={() => location.pathname.slice(-1) !== '/' && <Redirect to={`${location.pathname}/`} />}
-                    />
-                    <Route path="/register" component={Auth} />
                     <Route path="/login" component={Login} />
+                    <Route path="/register" component={Auth} />
                     <Route path="/confirm-register/:token" component={ConfirmRegister} />
+                    <Route path="/password-reset/:token" component={ResetPassword} />
                     <Route component={Page404} />
                 </Switch>
         )}

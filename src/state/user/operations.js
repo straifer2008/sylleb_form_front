@@ -3,9 +3,20 @@ import {
     fetchAuthError,
     receiveAuth,
     fetchConfirmEmailStart,
-    fetchConfirmEmailError, confirmEmailReceive, userLogOut, userLogOutError, checkUserIsAuth
+    fetchConfirmEmailError,
+    confirmEmailReceive,
+    userLogOut,
+    userLogOutError,
+    checkUserIsAuth,
+    userLogOutReceive,
+    forgotPasswordStart,
+    forgotPasswordReceive,
+    forgotPasswordError,
+    resetPasswordStart,
+    resetPasswordError,
+    resetPasswordReceive
 } from "./authAction";
-import {apiPost} from "../../utils/helpers/apiHelpers";
+import {apiGet, apiPost} from "../../utils/helpers/apiHelpers";
 import { history } from '../../store';
 
 const userRegistration = ({ username, email, password }) => async (dispatch, getState) => {
@@ -19,7 +30,7 @@ const userRegistration = ({ username, email, password }) => async (dispatch, get
     }
 };
 
-const userAuth = ({ email, password, remember }) => async (dispatch, getState) => {
+const userAuth = ({ email, password, remember }) => async (dispatch) => {
     dispatch(fetchAuthStart());
     try {
         const {data} = await apiPost('/login', {email, password, remember} );
@@ -42,14 +53,15 @@ const confirmEmail = ({token}) => async (dispatch) => {
     }
 };
 
-const logOut = () => (dispatch) => {
+const logOut = () => async (dispatch) => {
     dispatch(userLogOut());
-    localStorage.removeItem('authToken');
     try {
-        console.log('User log out');
+        const logOutRes = await apiGet('/logout');
+        localStorage.removeItem('authToken');
         history.push('/login');
+        dispatch(userLogOutReceive(logOutRes.data.message));
     } catch (e) {
-        dispatch(userLogOutError())
+        dispatch(userLogOutError(e))
     }
 };
 
@@ -61,10 +73,32 @@ const checkIsUserAuth = () => (dispatch) => {
     }
 };
 
+const userForgotPassword = ({email}) => async (dispatch) => {
+    dispatch(forgotPasswordStart());
+    try {
+        const res = await apiPost('/forgot-password', {email});
+        dispatch(forgotPasswordReceive(res.data.message));
+    } catch (e) {
+        dispatch(forgotPasswordError(e));
+    }
+};
+
+const userResetPassword = ({email, password, password_confirmation, token}) => async (dispatch) => {
+    dispatch(resetPasswordStart());
+    try {
+        const res = await apiPost('/password-reset', {token, email, password, password_confirmation});
+        dispatch(resetPasswordReceive(res.data));
+    } catch (e) {
+        dispatch(resetPasswordError(e));
+    }
+};
+
 export {
     userRegistration,
     userAuth,
     confirmEmail,
     logOut,
-    checkIsUserAuth
+    checkIsUserAuth,
+    userForgotPassword,
+    userResetPassword
 }

@@ -5,3 +5,24 @@
     margin-right: 10px;
   }
 }
+
+.login {
+  color: white!important;
+  .back {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  p {
+    color: white!important;
+    .forgotPassword {
+      color: #2ecc71;
+      transition: 200ms color ease-in-out;
+      &:hover {
+        cursor: pointer;
+        color: #B0BEC5;
+      }
+    }
+  }
+}

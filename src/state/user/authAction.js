@@ -12,8 +12,15 @@ export const {
     fetchConfirmEmailError,
     confirmEmailReceive,
     userLogOut,
+    userLogOutReceive,
     userLogOutError,
-    checkUserIsAuth
+    checkUserIsAuth,
+    forgotPasswordStart,
+    forgotPasswordReceive,
+    forgotPasswordError,
+    resetPasswordStart,
+    resetPasswordReceive,
+    resetPasswordError,
 } = createActions(
     types.FETCH_AUTH_START,
     types.FETCH_AUTH_ERROR,
@@ -25,6 +32,13 @@ export const {
     types.FETCH_CONFIRM_EMAIL_ERROR,
     types.CONFIRM_EMAIL_RECEIVE,
     types.USER_LOG_OUT,
+    types.USER_LOG_OUT_RECEIVE,
     types.USER_LOG_OUT_ERROR,
-    types.CHECK_USER_IS_AUTH
+    types.CHECK_USER_IS_AUTH,
+    types.FORGOT_PASSWORD_START,
+    types.FORGOT_PASSWORD_RECEIVE,
+    types.FORGOT_PASSWORD_ERROR,
+    types.RESET_PASSWORD_START,
+    types.RESET_PASSWORD_RECEIVE,
+    types.RESET_PASSWORD_ERROR
 );
