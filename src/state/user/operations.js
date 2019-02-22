@@ -83,10 +83,10 @@ const userForgotPassword = ({email}) => async (dispatch) => {
     }
 };
 
-const userResetPassword = ({email, password, password_confirmation, token}) => async (dispatch) => {
+const userResetPassword = ({password, password_confirmation, token}) => async (dispatch) => {
     dispatch(resetPasswordStart());
     try {
-        const res = await apiPost('/password-reset', {token, email, password, password_confirmation});
+        const res = await apiPost('/password-reset', {token, password, password_confirmation});
         dispatch(resetPasswordReceive(res.data));
     } catch (e) {
         dispatch(resetPasswordError(e));

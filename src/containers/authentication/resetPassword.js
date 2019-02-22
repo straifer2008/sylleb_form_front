@@ -8,7 +8,6 @@ import {withRouter} from "react-router-dom";
 
 const ResetPassword = ({
                            loading,
-                           email,
                            setEmail,
                            password,
                            setPassword,
@@ -26,13 +25,6 @@ const ResetPassword = ({
         {
             loading ? <Loader/> :
                 <form className='ResetPassword_form'>
-                    <TextInput name={'email'}
-                               label={'Your email'}
-                               placeholder={'Enter your email'}
-                               type={'email'}
-                               onChange={e => setEmail(e.target.value)}
-                               inputValue={email}
-                    />
                     <TextInput name={'password'}
                                label={'Your password'}
                                placeholder={'Enter your password'}
@@ -50,7 +42,7 @@ const ResetPassword = ({
                     <Button text={'Reset password'}
                             type={'success'}
                             submit={true}
-                            click={ () => userResetPassword({email, password, password_confirmation, token: match.params.token}) }
+                            click={ () => userResetPassword({password, password_confirmation, token: match.params.token}) }
                     />
                 </form>
         }
@@ -69,7 +61,6 @@ const mapDispatchToProps = ({
 const enhance = compose(
     connect(mapStateToProps, mapDispatchToProps),
     withRouter,
-    withState('email', 'setEmail', ''),
     withState('password', 'setPassword', ''),
     withState('password_confirmation', 'setConfirmPassword', ''),
 );
