@@ -1,6 +1,6 @@
 import React from 'react';
 import {compose} from "recompose";
-import {Redirect, Route, Switch} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import {Home, Login, Auth} from "../../../pages";
 import Page404 from "../../page404/page404";
 import ConfirmRegister from "../../confirmRegister/confirmRegister";
