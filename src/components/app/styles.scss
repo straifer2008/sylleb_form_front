@@ -1,0 +1,32 @@
+@import "../../constants/colors";
+
+.wrap {
+  color: $color-tableText;
+  width: 100vw;
+  height: 100vh;
+  background-color: $color-bg;
+  display: grid;
+  grid-template-columns: 1fr;
+  &_content {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 80px 1fr 100px;
+  }
+
+  &_navigation {
+    z-index: 9;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    &-active {
+      grid-template-columns: auto 1fr;
+    }
+  }
+}
+
+.main {
+  margin: 10px 15px;
+  padding: 10px;
+  background-color: $color-white;
+  box-shadow: 0 0 10px rgba(0,0,0,.3);
+  overflow: hidden;
+  position: relative;
+}

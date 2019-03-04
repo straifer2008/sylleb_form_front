@@ -1,28 +1,22 @@
-.checkbox {
-  color: white;
-  margin: 10px 0;
-  input {
-    margin-right: 10px;
-  }
-}
+@import "../../constants/colors";
 
 .login {
-  color: white!important;
-  .back {
-    &:hover {
-      cursor: pointer;
-    }
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  &_title {
+    color: $color-dark;
+    margin: 0;
+    padding: 0 0 25px;
+    text-align: center;
+    border-bottom: 1px solid $color-pink;
   }
 
-  p {
-    color: white!important;
-    .forgotPassword {
-      color: #2ecc71;
-      transition: 200ms color ease-in-out;
-      &:hover {
-        cursor: pointer;
-        color: #B0BEC5;
-      }
-    }
+  &_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
   }
 }

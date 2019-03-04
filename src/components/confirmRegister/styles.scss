@@ -1,3 +1,11 @@
-.title {
-  color: white!important;
+@import "../../constants/colors";
+
+.confirmRegister {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  &_error {
+    color: $color-pink;
+  }
 }

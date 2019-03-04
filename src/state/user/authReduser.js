@@ -22,7 +22,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                ...action.payload
+                user: action.payload
             }
         }
         case types.FETCH_AUTH_ERROR: {

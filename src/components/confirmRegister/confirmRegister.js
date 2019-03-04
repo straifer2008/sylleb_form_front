@@ -7,14 +7,15 @@ import {confirmEmail} from "../../state/user/operations";
 import './styles.scss'
 
 const ConfirmRegister = ({loading, error}) => (
-    <>
-        <h1 className={'title'}>{!error ? 'We check your token. Please wait' : error.message}</h1>
+    <div className='confirmRegister'>
+        {!error ?
+            <h2>We check your token. Please wait</h2> : <h3 className='confirmRegister_error'>error.message</h3>}
         {
             loading ?
                 <Loader/> :
                 null
         }
-    </>
+    </div>
 );
 
 const mapDispatchToProps = ({

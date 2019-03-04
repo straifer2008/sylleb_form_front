@@ -1,0 +1,32 @@
+@import "../../constants/colors";
+
+.header {
+  background-color: $color-pink;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  position: relative;
+  color: $color-white;
+  &_logo {
+    max-width: 200px;
+    height: auto;
+  }
+
+  &_register {
+    border: 0.5px solid $color-white;
+    color: $color-white;
+    background: transparent;
+    border-radius: 5px;
+    outline: none;
+    padding: 10px 20px;
+    transition: 300ms background-color ease-in-out, 300ms box-shadow ease-in-out, 300ms text-shadow ease-in-out;
+    &:hover {
+      cursor: pointer;
+      text-shadow: 0 0 5px rgba(0,0,0,.7);
+      background: rgba(255,255,255,.3);
+      box-shadow: 0 0 15px rgba(0,0,0,.5) inset;
+    }
+  }
+}

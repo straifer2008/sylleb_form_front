@@ -1,0 +1,39 @@
+@import "../../constants/colors";
+
+.registerForm {
+  display: grid;
+  grid-template-columns: 250px;
+  grid-template-rows: 1fr;
+  grid-gap: 15px;
+  &_field {
+    input {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 10px;
+    }
+
+    &__error {
+      color: $color-pink;
+    }
+  }
+  &_submit {
+    background-color: $color-bg;
+    border: 1px solid $color-pink;
+    outline: none;
+    padding: 10px 0;
+    transition: 300ms box-shadow ease-in-out;
+    &:hover {
+      animation: buttonHover 300ms ease-in-out;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0, .3);
+    }
+  }
+}
+
+@keyframes buttonHover {
+  0% {transform: rotate(1deg);}
+  25% {transform: rotate(-1deg);}
+  50% {transform: rotate(1deg);}
+  75% {transform: rotate(-1deg);}
+  100% {transform: rotate(1deg);}
+}

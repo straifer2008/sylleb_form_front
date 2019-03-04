@@ -19,26 +19,28 @@ import {
 import {apiGet, apiPost} from "../../utils/helpers/apiHelpers";
 import { history } from '../../store';
 
-const userRegistration = ({ username, email, password }) => async (dispatch, getState) => {
+const userRegistration = (registerData) => async (dispatch) => {
     dispatch(fetchAuthStart());
     try {
-       const {data} = await apiPost('/register', {username, email, password} );
-       dispatch(receiveAuth({...data}));
-        history.push('/login');
+       const data = await apiPost('/register', registerData);
+        dispatch(receiveAuth(data));
+        setTimeout(() => {
+            history.push('/login');
+        }, 1000);
     } catch (error) {
-        dispatch(fetchAuthError(error.response.data));
+        dispatch(fetchAuthError(error));
     }
 };
 
-const userAuth = ({ email, password, remember }) => async (dispatch) => {
+const userAuth = (authData) => async (dispatch) => {
     dispatch(fetchAuthStart());
     try {
-        const {data} = await apiPost('/login', {email, password, remember} );
+        const data = await apiPost('/login', authData);
         history.push('/home');
-        dispatch(receiveAuth({...data, userIsLogged: true}));
         localStorage.setItem('authToken', data.userToken);
+        dispatch(receiveAuth({...data, userIsLogged: true}));
     } catch (error) {
-        dispatch(fetchAuthError(error.response.data));
+        dispatch(fetchAuthError(error));
     }
 };
 
