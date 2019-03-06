@@ -16,6 +16,7 @@
       color: $color-pink;
     }
   }
+
   &_submit {
     background-color: $color-bg;
     border: 1px solid $color-pink;
@@ -26,6 +27,23 @@
       animation: buttonHover 300ms ease-in-out;
       cursor: pointer;
       box-shadow: 0 0 10px rgba(0,0,0, .3);
+    }
+  }
+
+  &_successMessage {
+    font-size: 16px;
+    color: $color-success;
+    text-align: center;
+  }
+
+  .error {
+    font-size: 14px;
+    &-danger {
+      color: $color-pink;
+    }
+
+    &-warn {
+      color: $color-warn;
     }
   }
 }

@@ -1,0 +1,33 @@
+@import "../../constants/colors";
+
+.modal {
+  background-color: $color-bg;
+  position: relative;
+  min-width: 50vw;
+  min-height: 300px;
+  display: flex;
+  flex: 1;
+  &_close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 20px;
+    font-size: 15px;
+    line-height: 20px;
+    border-radius: 50%;
+    border: 1px solid grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 300ms background-color ease-in-out;
+    &:hover {
+      cursor: pointer;
+      background-color: $color-white;
+    }
+  }
+
+  &_content {
+    display: flex;
+    flex: 1;
+  }
+}

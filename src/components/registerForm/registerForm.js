@@ -1,7 +1,9 @@
 import React from 'react'
 import {compose} from 'recompose'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from "yup";
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import * as Yup from 'yup';
 import './styles.scss'
 
 const validationSchema = Yup.object().shape({
@@ -26,7 +28,7 @@ const initialValues = {
     password: ''
 };
 
-const RegisterForm = ({onSubmit}) => (
+const RegisterForm = ({onSubmit, error, message}) => (
     <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -34,26 +36,76 @@ const RegisterForm = ({onSubmit}) => (
     >
         {({ isSubmitting }) => (
             <Form className='registerForm'>
+                {
+                    message ?
+                        <p className='registerForm_successMessage'>
+                            {message}
+                        </p> : null
+                }
                 <div className="registerForm_field">
                     <Field type="text" name="username" placeholder='Name' />
-                    <ErrorMessage name="username"
-                                  render={msg => <div className='registerForm_field__error'>{msg}</div>} />
+                    <ErrorMessage
+                        name="username"
+                        render={
+                            msg => <div className='registerForm_field__error'>
+                                {msg}
+                            </div>
+                        } />
                 </div>
                 <div className="registerForm_field">
-                    <Field type="email" name="email" placeholder='Email' />
-                    <ErrorMessage name="email"
-                                  render={msg => <div className='registerForm_field__error'>{msg}</div>} />
+                    <Field
+                        type="email"
+                        name="email"
+                        placeholder='Email' />
+                    <ErrorMessage
+                        name="email"
+                        render={
+                            msg => <div className='registerForm_field__error'>
+                                {msg}
+                            </div>
+                        } />
                 </div>
                 <div className="registerForm_field">
-                    <Field type="password" name="password" placeholder='password' />
-                    <ErrorMessage name="password"
-                                  render={msg => <div className='registerForm_field__error'>{msg}</div>} />
+                    <Field
+                        type="password"
+                        name="password"
+                        placeholder='password' />
+                    <ErrorMessage
+                        name="password"
+                        render={
+                            msg => <div className='registerForm_field__error'>
+                                {msg}
+                            </div>
+                        } />
                 </div>
-                <button className='registerForm_submit' type="submit" disabled={isSubmitting}>Submit</button>
+                <button className='registerForm_submit'
+                        type="submit"
+                        disabled={isSubmitting}>Submit</button>
+                {
+                    error && error.message ?
+                        <p className={`error error-${error.type}`}>
+                            {error.message}
+                        </p> :
+                        error && !error.message ?
+                            <p>{error}</p> : null
+                }
             </Form>
         )}
     </Formik>
 );
 
-const enhance = compose();
+RegisterForm.propTypes = {
+    onSubmit: PropTypes.func,
+    error: PropTypes.any,
+    message: PropTypes.any
+};
+
+const mapStateToProps = (state) => ({
+   error: state.authReducer.error,
+   message: state.authReducer.message
+});
+
+const enhance = compose(
+    connect(mapStateToProps)
+);
 export default enhance(RegisterForm);

@@ -15,6 +15,36 @@
     &__error {
       color: $color-pink;
     }
+
+    &__label {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      &:hover {
+        cursor: pointer;
+      }
+
+      input {
+        width: 20px;
+        height: 20px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      &--text {
+        padding-left: 10px;
+        font-size: 16px;
+      }
+
+      &--link {
+        color: $color-primary400;
+        transition: 300ms color ease-in-out;
+        &:hover {
+          color: $color-primary800;
+        }
+      }
+    }
   }
 
   &_submit {
@@ -27,6 +57,17 @@
       animation: buttonHover 300ms ease-in-out;
       cursor: pointer;
       box-shadow: 0 0 10px rgba(0,0,0, .3);
+    }
+  }
+
+  .error {
+    font-size: 14px;
+    &-danger {
+      color: $color-pink;
+    }
+
+    &-warn {
+      color: $color-warn;
     }
   }
 }

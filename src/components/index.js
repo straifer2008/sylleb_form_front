@@ -1,11 +1,13 @@
-import ConfirmRegister from "./confirmRegister/confirmRegister"
+import ConfirmRegister from './confirmRegister/confirmRegister'
+import ForgotPasswordModal from './forgotPasswordModal/forgotPasswordModal'
+import RegisterForm from './registerForm/registerForm'
 import Navigation from './navigation/navigation'
-import Page404 from "./page404/page404"
+import LoginForm from './loginForm/loginForm'
+import CheckBox from './checkBox/checkBox'
+import Page404 from './page404/page404'
 import Loader from './loader/loader'
 import Footer from './footer/footer'
 import Header from './header/header'
-import RegisterForm from './registerForm/registerForm'
-import LoginForm from './loginForm/loginForm'
 import App from './app/app'
 
 export {
@@ -17,5 +19,7 @@ export {
     Header,
     Navigation,
     RegisterForm,
-    LoginForm
+    LoginForm,
+    CheckBox,
+    ForgotPasswordModal
 };

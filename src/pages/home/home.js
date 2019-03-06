@@ -1,8 +1,9 @@
-import React from "react";
-import {compose} from "recompose";
+import React from 'react';
+import {compose} from 'recompose';
+import {connect} from 'react-redux';
+import {Loader} from '../../components';
+import PropTypes from 'prop-types';
 import './styles.scss';
-import {connect} from "react-redux";
-import {Loader} from "../../components";
 
 const Home = ({loading}) => (
   <div className="Home">
@@ -13,6 +14,10 @@ const Home = ({loading}) => (
       }
   </div>
 );
+
+Home.propTypes = {
+    loading: PropTypes.bool
+};
 
 const mapStateToProps = (state) => ({
     loading: state.authReducer.loading

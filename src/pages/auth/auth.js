@@ -1,8 +1,10 @@
-import React from "react";
-import {Loader, RegisterForm} from "../../components";
-import {compose} from "recompose";
-import {connect} from "react-redux";
-import { userRegistration } from "../../state/user/operations";
+import React from 'react';
+import {Loader, RegisterForm} from '../../components';
+import {compose} from 'recompose';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import { userRegistration } from '../../state/user/operations';
+import {withRouter} from 'react-router-dom';
 import './style.scss'
 
 const Auth = ({
@@ -13,11 +15,17 @@ const Auth = ({
         <h1 className='auth_title'>Register</h1>
         <div className='auth_container'>
             {
-                !loading ? <RegisterForm onSubmit={values => userRegistration(values) }/> : <Loader/>
+                !loading ? <RegisterForm
+                    onSubmit={values => userRegistration(values) }/> : <Loader/>
             }
         </div>
     </div>
 );
+
+Auth.propTypes = {
+    userRegistration: PropTypes.func,
+    loading: PropTypes.bool
+};
 
 const mapDispatchToProps = ({
     userRegistration
@@ -28,6 +36,7 @@ const mapStateToProps = (state) => ({
 });
 
 const enhance = compose(
-    connect(mapStateToProps, mapDispatchToProps)
+    connect(mapStateToProps, mapDispatchToProps),
+    withRouter
 );
 export default enhance(Auth);

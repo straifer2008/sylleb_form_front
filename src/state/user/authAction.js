@@ -1,5 +1,5 @@
-import types from "./types";
-import {createActions} from "redux-actions";
+import {createActions} from 'redux-actions';
+import types from './types';
 
 export const {
     fetchAuthStart,

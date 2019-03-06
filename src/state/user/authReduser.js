@@ -3,11 +3,12 @@ import types from './types'
 const initialState = {
     loading: false,
     confirmed: false,
-    userIsLogged: false,
+    userIsLogged: !!localStorage.getItem('authToken'),
     token: null,
     message: null,
     error: null,
     notifications: null,
+    user: null
 };
 
 const authReducer = (state = initialState, action) => {
@@ -15,6 +16,7 @@ const authReducer = (state = initialState, action) => {
         case types.FETCH_AUTH_START: {
             return {
                 ...state,
+                error: null,
                 loading: true
             }
         }
@@ -22,7 +24,8 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                user: action.payload
+                error: null,
+                message: action.payload
             }
         }
         case types.FETCH_AUTH_ERROR: {
@@ -35,6 +38,7 @@ const authReducer = (state = initialState, action) => {
         case types.FETCH_CONFIRM_EMAIL_START: {
             return {
                 ...state,
+                error: null,
                 loading: true
             }
         }
@@ -43,7 +47,7 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 confirmed: true,
-                ...action.payload
+                message: action.payload
             }
         }
         case types.FETCH_CONFIRM_EMAIL_ERROR: {
@@ -53,9 +57,32 @@ const authReducer = (state = initialState, action) => {
                 error: action.payload
             }
         }
+        case types.USER_LOG_START: {
+            return {
+                ...state,
+                error: null,
+                loading: true,
+            }
+        }
+        case types.USER_LOG_RECEIVE: {
+            return {
+                ...state,
+                loading: false,
+                userIsLogged: true,
+                token: action.payload
+            }
+        }
+        case types.USER_LOG_ERROR: {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        }
         case types.USER_LOG_OUT: {
             return {
                 ...state,
+                error: null,
                 loading: true,
                 userIsLogged: true
             }
