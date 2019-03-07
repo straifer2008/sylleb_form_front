@@ -27,7 +27,8 @@ const initialValues = {
 
 const LoginForm = ({
                        onSubmit, error,
-                       forgotModal, toggleForgotModal,
+                       forgotModal, setForgotModal,
+                       forgotPassword, notifications
 }) => (
     <Formik
         initialValues={initialValues}
@@ -36,6 +37,12 @@ const LoginForm = ({
     >
         {({ isSubmitting }) => (
             <Form className='loginForm'>
+                {
+                    notifications ?
+                        <p className='loginForm_successMessage'>
+                            {notifications}
+                        </p> : null
+                }
                 <div className="loginForm_field">
                     <Field type="email" name="email" placeholder='Email'/>
                     <ErrorMessage
@@ -74,13 +81,14 @@ const LoginForm = ({
                     <label className='loginForm_field__label'>
                         <span
                             className='loginForm_field__label--link'
-                            onClick={() => toggleForgotModal(true)} >
+                            onClick={() => setForgotModal(true)} >
                             Forgot Password?
                         </span>
                         <ForgotPasswordModal
+                            forgotPassword={forgotPassword}
                             modalIsOpen={forgotModal}
-                            closeModal={() => toggleForgotModal(false)}
-                            afterOpenModal={() => console.log('test')} />
+                            closeModal={() => setForgotModal(false)}
+                            afterOpenModal={() => console.log('Forgot modal is open')} />
                     </label>
                 </div>
                 {
@@ -97,19 +105,21 @@ const LoginForm = ({
 );
 
 LoginForm.propTypes = {
-    onSubmit: PropTypes.func,
     error: PropTypes.any,
+    onSubmit: PropTypes.func,
+    notifications: PropTypes.string,
     forgotModal: PropTypes.bool,
-    toggleForgotModal: PropTypes.func
+    setForgotModal: PropTypes.func,
+    forgotPassword: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
-    error: state.authReducer.error
+    error: state.authReducer.error,
+    notifications: state.authReducer.notifications
 });
 
 const enhance = compose(
     connect(mapStateToProps),
-    withState('forgotModal', 'toggleForgotModal', false),
-    withState('closeModal', 'handleCloseModal', false),
+    withState('forgotModal', 'setForgotModal', false),
 );
 export default enhance(LoginForm);

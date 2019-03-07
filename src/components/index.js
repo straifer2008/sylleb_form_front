@@ -1,5 +1,6 @@
 import ConfirmRegister from './confirmRegister/confirmRegister'
 import ForgotPasswordModal from './forgotPasswordModal/forgotPasswordModal'
+import ResetPasswordForm from './resetPasswordForm/resetPasswordForm'
 import RegisterForm from './registerForm/registerForm'
 import Navigation from './navigation/navigation'
 import LoginForm from './loginForm/loginForm'
@@ -21,5 +22,6 @@ export {
     RegisterForm,
     LoginForm,
     CheckBox,
-    ForgotPasswordModal
+    ForgotPasswordModal,
+    ResetPasswordForm
 };

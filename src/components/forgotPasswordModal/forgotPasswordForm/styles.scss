@@ -1,10 +1,20 @@
-@import "../../constants/colors";
+@import "../../../constants/colors";
 
-.loginForm {
+.forgotPasswordForm {
   display: grid;
   grid-template-columns: 250px;
   grid-template-rows: 1fr;
   grid-gap: 15px;
+  align-items: center;
+  align-content: center;
+  &_title {
+    border-bottom: 1px solid $color-pink;
+    text-align: center;
+    font-size: 20px;
+    padding-bottom: 10px;
+    color: $color-dark;
+  }
+
   &_field {
     input {
       box-sizing: border-box;
@@ -69,12 +79,6 @@
     &-warn {
       color: $color-warn;
     }
-  }
-
-  &_successMessage {
-    font-size: 18px;
-    text-align: center;
-    color: $color-success;
   }
 }
 

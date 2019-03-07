@@ -10,7 +10,6 @@ import './styles.scss'
 const Login = ({
                    userAuth,
                    userForgotPassword,
-                   remember,
                    loading,
                }) => (
     <div className='login'>
@@ -18,7 +17,10 @@ const Login = ({
         <div className='login_container'>
             {
                 loading ? <Loader/> :
-                    <LoginForm onSubmit={ values => userAuth(values) }/>
+                    <LoginForm
+                        onSubmit={ values => userAuth(values) }
+                        forgotPassword={ values => userForgotPassword(values) }
+                    />
             }
         </div>
     </div>
@@ -27,7 +29,6 @@ const Login = ({
 Login.propTypes = {
     userAuth: PropTypes.func,
     userForgotPassword: PropTypes.func,
-    remember: PropTypes.bool,
     loading: PropTypes.bool,
 };
 

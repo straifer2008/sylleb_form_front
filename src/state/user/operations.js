@@ -82,6 +82,33 @@ const logOut = () => async (dispatch) => {
     }
 };
 
+const userForgotPassword = (email) => async (dispatch) => {
+    dispatch(forgotPasswordStart());
+    try {
+        const res = await apiPost('/forgot-password', email);
+        dispatch(forgotPasswordReceive(res.data.message));
+        console.log(res.data.message, '-----res.data.message');
+        history.push('/login');
+    } catch (e) {
+        dispatch(forgotPasswordError(e));
+    }
+};
+
+const userResetPassword = (resetPasswordData) => async (dispatch) => {
+    dispatch(resetPasswordStart());
+    try {
+        const res = await apiPost('/password-reset', resetPasswordData);
+        if (res.data.message) {
+            dispatch(resetPasswordReceive(res.data.message));
+        } else if (res.data) {
+            dispatch(resetPasswordReceive(res.data));
+        }
+        history.push('/login');
+    } catch (e) {
+        dispatch(resetPasswordError(e));
+    }
+};
+
 const checkIsUserAuth = () => (dispatch) => {
     if (localStorage.getItem('authToken')) {
         dispatch(checkUserIsAuth(true));
@@ -90,35 +117,12 @@ const checkIsUserAuth = () => (dispatch) => {
     }
 };
 
-const userForgotPassword = ({email}) => async (dispatch) => {
-    dispatch(forgotPasswordStart());
-    try {
-        const res = await apiPost('/forgot-password', {email});
-        dispatch(forgotPasswordReceive(res.data.message));
-    } catch (e) {
-        dispatch(forgotPasswordError(e));
-    }
-};
-
-const userResetPassword = ({password, password_confirmation, token}) => async (dispatch) => {
-    dispatch(resetPasswordStart());
-    try {
-        const res = await apiPost(
-            '/password-reset',
-            {token, password, password_confirmation}
-            );
-        dispatch(resetPasswordReceive(res.data));
-    } catch (e) {
-        dispatch(resetPasswordError(e));
-    }
-};
-
 export {
     userRegistration,
     userAuth,
     confirmEmail,
     logOut,
-    checkIsUserAuth,
     userForgotPassword,
-    userResetPassword
+    userResetPassword,
+    checkIsUserAuth
 };

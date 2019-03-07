@@ -1,8 +1,8 @@
 import React from 'react';
 import {compose} from 'recompose';
-import {Route, Switch} from 'react-router';
+import {Route, Switch, Redirect} from 'react-router';
 import {ConfirmRegister} from '../../';
-import {Home, Login, Auth} from '../../../pages';
+import {Home, Login, Auth, PasswordReset} from '../../../pages';
 import Page404 from '../../page404/page404';
 import {
     userIsAuthenticated,
@@ -16,6 +16,9 @@ const AppRoutes = () => (
         <Route path="/register" component={userIsNotAuthenticated(Auth)} />
         <Route path="/confirm-register/:token"
                component={userIsNotAuthenticated(ConfirmRegister)} />
+        <Route path="/password-reset/:token"
+               component={userIsNotAuthenticated(PasswordReset)} />
+        <Redirect to='/home' />
         <Route component={Page404} />
     </Switch>
 );
