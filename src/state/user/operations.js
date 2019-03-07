@@ -44,10 +44,12 @@ const userRegistration = (registerData) => async (dispatch) => {
 const userAuth = (authData) => async (dispatch) => {
     dispatch(userLogStart());
     try {
-        const data = await apiPost('/login', authData);
+        const postData = await apiPost('/login', authData);
         history.push('/home');
-        localStorage.setItem('authToken', data.userToken);
-        dispatch(userLogReceive(data.userToken));
+        if (authData.remember) {
+            localStorage.setItem('authToken', postData.data.userToken);
+        }
+        dispatch(userLogReceive(postData.data.userToken));
     } catch (error) {
         if (error.response && error.response.data) {
             dispatch(userLogError(error.response.data));
@@ -109,7 +111,19 @@ const userResetPassword = (resetPasswordData) => async (dispatch) => {
     }
 };
 
-const checkIsUserAuth = () => (dispatch) => {
+const checkIsUserAuth = () => async (dispatch) => {
+    dispatch(userLogStart());
+    try {
+        const postData = await apiPost('/login', {});
+        localStorage.setItem('authToken', postData.data.userToken);
+    } catch (error) {
+        if (error.response && error.response.data) {
+            dispatch(userLogError(error.response.data));
+        } else {
+            dispatch(userLogError(error));
+        }
+    }
+
     if (localStorage.getItem('authToken')) {
         dispatch(checkUserIsAuth(true));
     } else {

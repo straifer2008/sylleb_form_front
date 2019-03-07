@@ -47,7 +47,7 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 confirmed: true,
-                message: action.payload
+                notifications: action.payload
             }
         }
         case types.FETCH_CONFIRM_EMAIL_ERROR: {

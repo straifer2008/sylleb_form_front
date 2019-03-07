@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import {connect} from 'react-redux';
 import {ForgotPasswordModal} from '../'
+import EyeIcon from '../../assets/img/eye.svg';
 import './styles.scss'
 
 const validationSchema = Yup.object().shape({
@@ -28,7 +29,8 @@ const initialValues = {
 const LoginForm = ({
                        onSubmit, error,
                        forgotModal, setForgotModal,
-                       forgotPassword, notifications
+                       forgotPassword, notifications,
+                       showPassword, setShowPassword
 }) => (
     <Formik
         initialValues={initialValues}
@@ -54,9 +56,15 @@ const LoginForm = ({
                         }/>
                 </div>
                 <div className="loginForm_field">
-                    <Field type="password"
-                           name="password"
-                           placeholder='password'/>
+                    <div className='loginForm_field__relative'>
+                        <Field type={showPassword ? 'text':'password'}
+                               name="password"
+                               placeholder='password'/>
+                        <img className='loginForm_field__icon'
+                             src={EyeIcon}
+                             onClick={() => setShowPassword(!showPassword)}
+                             alt="eye"/>
+                    </div>
                     <ErrorMessage name="password"
                                   render={msg =>
                                       <div className='loginForm_field__error'>
@@ -121,5 +129,6 @@ const mapStateToProps = (state) => ({
 const enhance = compose(
     connect(mapStateToProps),
     withState('forgotModal', 'setForgotModal', false),
+    withState('showPassword', 'setShowPassword', false),
 );
 export default enhance(LoginForm);

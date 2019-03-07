@@ -8,12 +8,14 @@ import { logOut } from '../../state/user/operations';
 import PropTypes from 'prop-types';
 import './styles.scss';
 
-const Header = ({ userIsLogged, location, logOut }) => (
+const Header = ({ userIsLogged, location, logOut, userData }) => (
     <header className='header'>
         {
             userIsLogged ?
                 <>
-                    <h2>User name</h2>
+                    {
+                        userData ? <h2>{userData.name.toUpperCase()}</h2>:<h2>Unknown user</h2>
+                    }
                     <button
                         className='header_register'
                         onClick={() => logOut()}
@@ -41,11 +43,13 @@ const Header = ({ userIsLogged, location, logOut }) => (
 Header.propTypes = {
     userIsLogged: PropTypes.bool,
     location: PropTypes.object,
-    logOut: PropTypes.func
+    logOut: PropTypes.func,
+    userData: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({
-    userIsLogged: state.authReducer.userIsLogged
+    userIsLogged: state.authReducer.userIsLogged,
+    userData: state.homeReducer.userData
 });
 const mapDispatchToProps = ({
     logOut

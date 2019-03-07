@@ -1,9 +1,10 @@
 import React from 'react'
-import {compose} from 'recompose'
+import {compose, withState} from 'recompose'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
+import EyeIcon from '../../assets/img/eye.svg';
 import './styles.scss'
 
 const validationSchema = Yup.object().shape({
@@ -28,7 +29,11 @@ const initialValues = {
     password: ''
 };
 
-const RegisterForm = ({onSubmit, error, message}) => (
+const RegisterForm = ({
+                          onSubmit,
+                          error, message,
+                          showPassword, setShowPassword
+}) => (
     <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -66,10 +71,16 @@ const RegisterForm = ({onSubmit, error, message}) => (
                         } />
                 </div>
                 <div className="registerForm_field">
-                    <Field
-                        type="password"
-                        name="password"
-                        placeholder='password' />
+                    <div className='loginForm_field__relative'>
+                        <Field
+                            type={showPassword ? 'text' : 'password'}
+                            name="password"
+                            placeholder='password' />
+                        <img className='loginForm_field__icon'
+                             src={EyeIcon}
+                             onClick={() => setShowPassword(!showPassword)}
+                             alt="eye"/>
+                    </div>
                     <ErrorMessage
                         name="password"
                         render={
@@ -97,7 +108,9 @@ const RegisterForm = ({onSubmit, error, message}) => (
 RegisterForm.propTypes = {
     onSubmit: PropTypes.func,
     error: PropTypes.any,
-    message: PropTypes.any
+    message: PropTypes.any,
+    showPassword: PropTypes.bool,
+    setShowPassword: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
@@ -106,6 +119,7 @@ const mapStateToProps = (state) => ({
 });
 
 const enhance = compose(
-    connect(mapStateToProps)
+    connect(mapStateToProps),
+    withState('showPassword', 'setShowPassword', false),
 );
 export default enhance(RegisterForm);

@@ -16,6 +16,7 @@
   &_navigation {
     z-index: 9;
     box-shadow: 0 0 20px rgba(0, 0, 0, .5);
+    background-color: $color-white;
     &-active {
       grid-template-columns: auto 1fr;
     }

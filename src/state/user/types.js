@@ -1,4 +1,4 @@
-export  default  {
+export default {
     FETCH_AUTH_START: 'FETCH_AUTH_START',
     FETCH_AUTH_ERROR: 'FETCH_AUTH_ERROR',
     RECEIVE_AUTH: 'RECEIVE_AUTH',
