@@ -1,6 +1,6 @@
 import React from 'react';
 import {compose} from 'recompose';
-import {Route, Switch, Redirect} from 'react-router';
+import {Route, Switch, Redirect, withRouter} from 'react-router';
 import {ConfirmRegister} from '../../';
 import {Home, Login, Auth, PasswordReset} from '../../../pages';
 import Page404 from '../../page404/page404';
@@ -23,5 +23,7 @@ const AppRoutes = () => (
     </Switch>
 );
 
-const enhance = compose();
+const enhance = compose(
+  withRouter,
+);
 export default enhance(AppRoutes);

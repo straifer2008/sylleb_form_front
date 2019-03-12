@@ -2,5 +2,6 @@
 <project version="4">
   <component name="EslintConfiguration">
     <custom-configuration-file used="true" path="C:\MyProjects\sylleb\sylleb_form_front\.eslintrc" />
+    <additional-rules-dir value="C:\MyProjects\sylleb\sylleb_form_front" />
   </component>
 </project>

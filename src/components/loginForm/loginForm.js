@@ -40,7 +40,7 @@ const LoginForm = ({
         {({ isSubmitting }) => (
             <Form className='loginForm'>
                 {
-                    notifications ?
+                    notifications && typeof notifications === 'string' ?
                         <p className='loginForm_successMessage'>
                             {notifications}
                         </p> : null
@@ -100,11 +100,11 @@ const LoginForm = ({
                     </label>
                 </div>
                 {
-                    error && error.message ?
+                    error && error.message && typeof error.message === 'string' ?
                         <p className={`error error-${error.type}`}>
                             {error.message}
                         </p> :
-                    error && !error.message ?
+                    error && typeof error === 'string' ?
                         <p>{error}</p> : null
                 }
             </Form>
