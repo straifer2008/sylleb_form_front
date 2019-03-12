@@ -8,7 +8,6 @@ import {
 
 const getUserData = (data) => async (dispatch) => {
     dispatch(getUserDataStart());
-    console.log(data, '----user');
     // try {
     //     const postData = await apiPost('/getUser', {token: data});
     //     dispatch(getUserDataReceive(postData.data.user));

@@ -7,6 +7,7 @@ import {
 	forgotPasswordError, resetPasswordStart, resetPasswordError,
 	resetPasswordReceive, checkUserIsAuthReceive, checkUserIsAuthError
 } from './authAction';
+import {getPermissionsReceive} from '../permissions/permissionsAction';
 import {history} from '../../store';
 import {apiGet, apiPost, getUserIP} from '../../utils/helpers/apiHelpers';
 import {checkJWT} from '../../utils/helpers/helpers';
@@ -51,7 +52,7 @@ const userAuth = (authData) => async (dispatch) => {
 			localStorage.setItem('token', JSON.stringify(postData.data.user.token.token));
 		}
 		dispatch(userLogReceive(postData.data.user));
-		history.push('/home');
+		dispatch(getPermissionsReceive(postData.data.user.permissions));
 	} catch (error) {
 		if (error.response && error.response.data) {
 			dispatch(userLogError(error.response.data));
@@ -68,7 +69,6 @@ const logOut = () => async (dispatch, getState) => {
 
 		const logOutRes = await apiGet('/logout');
 		localStorage.clear();
-		history.push('/login');
 		dispatch(userLogOutReceive(logOutRes.data.message));
 	} catch (e) {
 		dispatch(userLogOutError(e))
