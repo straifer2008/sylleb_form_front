@@ -56,7 +56,7 @@ ForgotPasswordForm.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    loading: state.authReducer.loading
+    loading: state.auth.loading
 });
 
 const mapDispatchToProps = ({});

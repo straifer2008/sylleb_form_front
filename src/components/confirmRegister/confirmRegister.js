@@ -2,7 +2,7 @@ import React from 'react';
 import Loader from '../loader/loader';
 import {compose, lifecycle} from 'recompose'
 import {connect} from 'react-redux';
-import {confirmEmail} from '../../state/user/operations';
+import {confirmEmail} from '../../state/auth/operations';
 import PropTypes from 'prop-types';
 import './styles.scss'
 import {withRouter} from 'react-router-dom';
@@ -34,10 +34,10 @@ const mapDispatchToProps = ({
 });
 
 const mapStateToProps = (state) => ({
-    loading: state.authReducer.loading,
-    error: state.authReducer.error,
-    confirmed: state.authReducer.confirmed,
-    message: state.authReducer.message
+    loading: state.auth.loading,
+    error: state.auth.error,
+    confirmed: state.auth.confirmed,
+    message: state.auth.message
 });
 
 const enhance = compose(

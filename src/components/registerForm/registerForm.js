@@ -114,8 +114,8 @@ RegisterForm.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-   error: state.authReducer.error,
-   message: state.authReducer.message
+   error: state.auth.error,
+   message: state.auth.message
 });
 
 const enhance = compose(

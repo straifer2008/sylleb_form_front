@@ -22,7 +22,7 @@ Navigation.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    userIsLogged: state.authReducer.userIsLogged
+    userIsLogged: state.auth.userIsLogged
 });
 
 const enhance = compose(

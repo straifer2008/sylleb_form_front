@@ -1,0 +1,191 @@
+@import "../../constants/colors";
+
+.CerfaForm {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+
+  &_header {
+    display: grid;
+    grid-template-columns: 1fr;
+    &__row {
+      display: grid;
+      grid-gap: 15px;
+      grid-template-columns: 10vw 1fr 10vw;
+    }
+    
+    .CerfaRow {
+      &_logo {
+        &__img {
+          width: 100%;
+          height: auto;
+        }
+
+        &__title {}
+      }
+
+      &_title {
+        text-align: center;
+      }
+
+      &_certificate {
+        &__text {
+          background-color: #000;
+          color: #fff;
+          font-size: 22px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          margin: 0;
+          padding: 10px;
+          border-radius: 50%;
+          font-weight: bold;
+        }
+
+        &__number {
+          color: #000;
+          font-weight: bolder;
+          font-size: 16px;
+          text-align: center;
+        }
+      }
+
+      &_col2 {
+        grid-column: span 3;
+        grid-template-columns: 15vw 1fr;
+        grid-gap: 10px;
+        padding: 5px 10px 5px 0;
+      }
+
+      &_left {
+        font-weight: bold;
+        color: $color-black;
+      }
+
+      &_right {
+        font-weight: 400;
+        color: $color-black;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        p {
+          margin: 0;
+          padding: 0 10px;
+        }
+
+        .checkbox {
+          label {
+            &:before {
+              border-color: $color-black;
+              border-radius: 0;
+            }
+          }
+
+          input{
+            &:checked, &:focus, &:active {
+              &+label {
+                &:before {
+                  border-color: $color-black;
+                  border-radius: 0;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &_body {
+    &__top {
+      display: grid;
+      grid-template-columns: 1fr;
+      background-color: $color-bg;
+    }
+
+    .CerfaFormBodyTop {
+      &_title {
+        text-align: center;
+        color: $color-black;
+      }
+
+      &_fields {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 0 10px 10px;
+        .input {
+          display: flex;
+          flex-direction: column;
+          input {
+            border: none!important;
+            border-radius: 0;
+            outline: none;
+          }
+          label {
+            text-align: center;
+          }
+        }
+      }
+    }
+
+    &__form {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .CerfaFormBodyForm {
+      &_title {
+        background-color: $color-blue-black;
+        padding: 3px 5px;
+        color: $color-black;
+        font-weight: bolder;
+      }
+
+      &_fields {
+        background-color: $color-blue;
+        padding: 3px 15px;
+        color: $color-black;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 10px;
+        .input {
+          display: grid;
+          grid-template-columns: 200px 1fr;
+          input {
+            border: none;
+            outline: none;
+            border-radius: 0;
+            padding: 5px;
+          }
+
+          label {
+            padding: 0!important;
+          }
+        }
+
+        .black {
+          label {
+            font-weight: bold;
+          }
+        }
+
+        &__cols3 {
+          display: grid;
+          grid-gap: 10px;
+          grid-template-columns: repeat(3, 1fr);
+          .input {
+            grid-template-columns: .5fr 1fr;
+            align-items: center;
+            label {
+              padding-left: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &_footer {}
+}

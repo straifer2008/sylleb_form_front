@@ -1,7 +1,6 @@
 import React from 'react';
-import {compose, lifecycle} from 'recompose';
+import {compose} from 'recompose';
 import {connect} from 'react-redux';
-import {getUserData} from '../../../../state/home/operations';
 import {Dropdown} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
@@ -18,7 +17,7 @@ const NavigationNav = ({user}) => (
 							<li>Id: {user.id}</li>
 						</ul>
 						<Dropdown placeholder='User info' search selection options={[
-							{key: user.id, text: user.name.toUpperCase(), value: 'Name'},
+							{key: user.id, text: user.name, value: 'Name'},
 							{key: user.id + 1, text: user.created, value: 'created'},
 						]}/>
 					</> : null
@@ -28,26 +27,16 @@ const NavigationNav = ({user}) => (
 );
 
 NavigationNav.propTypes = {
-	getUserData: PropTypes.func,
 	user: PropTypes.object
 };
 
-const mapDispatchToProps = ({
-	getUserData
-});
+const mapDispatchToProps = ({});
 
 const mapStateToProps = (state) => ({
-  user: state.authReducer.user
+  user: state.user
 });
 
 const enhance = compose(
 	connect(mapStateToProps, mapDispatchToProps),
-	lifecycle({
-		componentDidMount() {
-			if (this.props.user) {
-				this.props.getUserData(this.props.user);
-			}
-		}
-	})
 );
 export default enhance(NavigationNav);

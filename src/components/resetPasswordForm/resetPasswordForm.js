@@ -79,7 +79,7 @@ ResetPasswordForm.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    notifications: state.authReducer.notifications
+    notifications: state.auth.notifications
 });
 const enhance = compose(
     connect(mapStateToProps),

@@ -3,7 +3,7 @@ import {Loader, RegisterForm} from '../../components';
 import {compose} from 'recompose';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import { userRegistration } from '../../state/user/operations';
+import { userRegistration } from '../../state/auth/operations';
 import {withRouter} from 'react-router-dom';
 import './style.scss'
 
@@ -32,7 +32,7 @@ const mapDispatchToProps = ({
 });
 
 const mapStateToProps = (state) => ({
-    loading: state.authReducer.loading
+    loading: state.auth.loading
 });
 
 const enhance = compose(

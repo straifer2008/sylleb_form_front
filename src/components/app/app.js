@@ -2,23 +2,30 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import {compose} from 'recompose';
 import {ConnectedRouter} from 'connected-react-router';
-import store, {history, persistor} from '../../store';
+import configureStore, {history} from '../../store';
 import AppWrapper from './wrapper/appWrapper';
-import { CookiesProvider } from 'react-cookie';
-import { PersistGate } from 'redux-persist/integration/react';
+import {CookiesProvider, withCookies} from 'react-cookie';
+import {PersistGate} from 'redux-persist/lib/integration/react';
 import './styles.scss';
+import Loader from '../loader/loader';
+
+const {store, persistor} = configureStore();
 
 const App = () => (
-    <Provider store={store}>
-	    <PersistGate loading={null} persistor={persistor}>
-        <ConnectedRouter history={history}>
-	        <CookiesProvider>
-		        <AppWrapper/>
-          </CookiesProvider>
-        </ConnectedRouter>
-	    </PersistGate>
-    </Provider>
+	<div className='wrap'>
+		<Provider store={store}>
+			<PersistGate loading={<Loader/>} persistor={persistor}>
+				<ConnectedRouter history={history}>
+					<CookiesProvider>
+						<AppWrapper/>
+					</CookiesProvider>
+				</ConnectedRouter>
+			</PersistGate>
+		</Provider>
+	</div>
 );
 
-const enhance = compose();
+const enhance = compose(
+	withCookies
+);
 export default enhance(App);

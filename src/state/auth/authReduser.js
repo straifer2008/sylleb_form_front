@@ -3,12 +3,11 @@ import types from './types'
 const initialState = {
 	loading: false,
 	confirmed: false,
-	userIsLogged: !!localStorage.getItem('token'),
+	userIsLogged: false,
 	token: null,
 	message: null,
 	error: null,
 	notifications: null,
-	user: null
 };
 
 const authReducer = (state = initialState, action) => {
@@ -69,7 +68,7 @@ const authReducer = (state = initialState, action) => {
 				...state,
 				loading: false,
 				userIsLogged: true,
-				user: action.payload
+				token: action.payload
 			}
 		}
 		case types.USER_LOG_ERROR: {
@@ -91,7 +90,7 @@ const authReducer = (state = initialState, action) => {
 				...state,
 				loading: false,
 				userIsLogged: false,
-				user: null,
+				token: null,
 				notifications: action.payload
 			}
 		}
@@ -100,28 +99,6 @@ const authReducer = (state = initialState, action) => {
 				...state,
 				loading: false,
 				error: action.payload
-			}
-		}
-		case types.CHECK_USER_IS_AUTH_START: {
-			return {
-				...state,
-				error: null,
-				loading: true
-			}
-		}
-		case types.CHECK_USER_IS_AUTH_ERROR: {
-			return {
-				...state,
-				loading: false,
-			}
-		}
-		case types.CHECK_USER_IS_AUTH_RECEIVE: {
-			return {
-				...state,
-				loading: false,
-				error: null,
-
-				user: action.payload
 			}
 		}
 		case types.RESET_PASSWORD_START: {

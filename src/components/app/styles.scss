@@ -28,6 +28,8 @@
   padding: 10px;
   background-color: $color-white;
   box-shadow: 0 0 10px rgba(0,0,0,.3);
-  overflow: hidden;
+  overflow: auto;
+  max-height: calc(100vh - 80px - 100px - 20px);
+  height: 100%;
   position: relative;
 }

@@ -1,27 +1,29 @@
 import {combineReducers} from 'redux';
 import {connectRouter} from 'connected-react-router'
-import authReducer from './user/authReduser';
-import homeReducer from './home/homeReducer';
-import permissionsReducer from './permissions/permissionsReducer';
-import {persistReducer} from 'redux-persist';
-import storage from 'redux-persist/lib/storage'
+import authReducer from './auth/authReduser';
+import userReducer from './user/userReducer';
+import { reducer as permissions } from 'react-redux-permissions'
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
+const authPersistconfog = {
+	key: 'auth',
+	debug: false,
+	storage
+};
 
-const persistConfigAuth = {
+const userPersistCongig = {
 	key: 'user',
-	storage,
-	whitelist: ['user']
+	debug: false,
+	storage
 };
-const persistConfigPermissions = {
-	key: 'permissions',
-	storage,
-};
+
 
 const rootReducer = history => combineReducers({
 	router: connectRouter(history),
-	authReducer: persistReducer(persistConfigAuth, authReducer),
-	permissions: persistReducer(persistConfigPermissions, permissionsReducer),
-	homeReducer
+	permissions,
+	auth: persistReducer(authPersistconfog, authReducer),
+	user: persistReducer(userPersistCongig, userReducer),
 });
 
 export default rootReducer;

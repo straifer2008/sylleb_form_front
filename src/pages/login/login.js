@@ -1,7 +1,7 @@
 import React from 'react';
 import {compose} from 'recompose';
 import connect from 'react-redux/es/connect/connect';
-import {userAuth, userForgotPassword} from '../../state/user/operations';
+import {userAuth, userForgotPassword} from '../../state/auth/operations';
 import {Loader, LoginForm} from '../../components';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
@@ -38,8 +38,8 @@ const mapDispatchToProps = ({
 });
 
 const mapStateToProps = (state) => ({
-	loading: state.authReducer.loading,
-	error: state.authReducer.error
+	loading: state.auth.loading,
+	error: state.auth.error
 });
 
 const enhance = compose(

@@ -2,7 +2,7 @@ import React from 'react';
 import {compose} from 'recompose';
 import {connect} from 'react-redux';
 import {Loader, ResetPasswordForm} from '../../components/';
-import {userResetPassword} from '../../state/user/operations';
+import {userResetPassword} from '../../state/auth/operations';
 import PropTypes from 'prop-types';
 import './styles.scss';
 
@@ -28,7 +28,7 @@ PasswordReset.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    loading: state.authReducer.loading,
+    loading: state.auth.loading,
 });
 
 const mapDispatchToProps = ({

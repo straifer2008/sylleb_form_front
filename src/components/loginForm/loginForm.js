@@ -9,126 +9,129 @@ import EyeIcon from '../../assets/img/eye.svg';
 import './styles.scss'
 
 const validationSchema = Yup.object().shape({
-    email: Yup
-        .string()
-        .required('Required')
-        .email('Invalid email'),
-    password: Yup.string()
-        .required('Required')
-        .min(2, 'Too Short!')
-        .max(50, 'Too Long!'),
-    remember: Yup.bool()
+	email: Yup
+		.string()
+		.required('Required')
+		.email('Invalid email'),
+	password: Yup.string()
+		.required('Required')
+		.min(2, 'Too Short!')
+		.max(50, 'Too Long!'),
+	remember: Yup.bool()
 });
 
 const initialValues = {
-    email: '',
-    password: '',
-    remember: false
+	email: '',
+	password: '',
+	remember: false
 };
 
 const LoginForm = ({
-                       onSubmit, error,
-                       forgotModal, setForgotModal,
-                       forgotPassword, notifications,
-                       showPassword, setShowPassword
-}) => (
-    <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-    >
-        {({ isSubmitting }) => (
-            <Form className='loginForm'>
-                {
-                    notifications && typeof notifications === 'string' ?
-                        <p className='loginForm_successMessage'>
-                            {notifications}
-                        </p> : null
-                }
-                <div className="loginForm_field">
-                    <Field type="email" name="email" placeholder='Email'/>
-                    <ErrorMessage
-                        name="email"
-                        render={
-                            msg => <div className='loginForm_field__error'>
-                                {msg}
-                            </div>
-                        }/>
-                </div>
-                <div className="loginForm_field">
-                    <div className='loginForm_field__relative'>
-                        <Field type={showPassword ? 'text':'password'}
-                               name="password"
-                               placeholder='password'/>
-                        <img className='loginForm_field__icon'
-                             src={EyeIcon}
-                             onClick={() => setShowPassword(!showPassword)}
-                             alt="eye"/>
-                    </div>
-                    <ErrorMessage name="password"
-                                  render={msg =>
-                                      <div className='loginForm_field__error'>
-                                          {msg}
-                                      </div>
-                                  }/>
-                </div>
-                <div className="loginForm_field">
-                    <label className='loginForm_field__label'>
-                        <Field type="checkbox"
-                               name="remember"
-                        />
-                        <span className='loginForm_field__label--text'>
+	                   onSubmit, error,
+	                   forgotModal, setForgotModal,
+	                   forgotPassword, notifications,
+	                   showPassword, setShowPassword
+                   }) => (
+	<Formik
+		initialValues={initialValues}
+		validationSchema={validationSchema}
+		onSubmit={onSubmit}
+	>
+		{({isSubmitting}) => (
+			<Form className='loginForm'>
+				{
+					notifications && typeof notifications === 'string' ?
+						<p className='loginForm_successMessage'>
+							{notifications}
+						</p> : null
+				}
+				<div className="loginForm_field">
+					<Field type="email" name="email" placeholder='Email'/>
+					<ErrorMessage
+						name="email"
+						render={
+							msg => <div className='loginForm_field__error'>
+								{msg}
+							</div>
+						}/>
+				</div>
+				<div className="loginForm_field">
+					<div className='loginForm_field__relative'>
+						<Field type={showPassword ? 'text' : 'password'}
+						       name="password"
+						       placeholder='password'/>
+						<img className='loginForm_field__icon'
+						     src={EyeIcon}
+						     onClick={() => setShowPassword(!showPassword)}
+						     alt="eye"/>
+					</div>
+					<ErrorMessage name="password"
+					              render={msg =>
+						              <div className='loginForm_field__error'>
+							              {msg}
+						              </div>
+					              }/>
+				</div>
+				<div className="loginForm_field">
+					<label className='loginForm_field__label'>
+						<Field type="checkbox"
+						       name="remember"
+						/>
+						<span className='loginForm_field__label--text'>
                             Remember my
                         </span>
-                    </label>
-                </div>
-                <button className='loginForm_submit'
-                        type="submit"
-                        disabled={isSubmitting}>Submit</button>
-                <div className="loginForm_field">
-                    <label className='loginForm_field__label'>
+					</label>
+				</div>
+				<button className='loginForm_submit'
+				        type="submit"
+				        disabled={isSubmitting}>Submit
+				</button>
+				<div className="loginForm_field">
+					<label className='loginForm_field__label'>
                         <span
-                            className='loginForm_field__label--link'
-                            onClick={() => setForgotModal(true)} >
+	                        className='loginForm_field__label--link'
+	                        onClick={() => setForgotModal(true)}>
                             Forgot Password?
                         </span>
-                        <ForgotPasswordModal
-                            forgotPassword={forgotPassword}
-                            modalIsOpen={forgotModal}
-                            closeModal={() => setForgotModal(false)}
-                            afterOpenModal={() => console.log('Forgot modal is open')} />
-                    </label>
-                </div>
-                {
-                    error && error.message && typeof error.message === 'string' ?
-                        <p className={`error error-${error.type}`}>
-                            {error.message}
-                        </p> :
-                    error && typeof error === 'string' ?
-                        <p>{error}</p> : null
-                }
-            </Form>
-        )}
-    </Formik>
+						<ForgotPasswordModal
+							forgotPassword={forgotPassword}
+							modalIsOpen={forgotModal}
+							closeModal={() => setForgotModal(false)}
+							afterOpenModal={() => console.log('Forgot modal is open')}/>
+					</label>
+				</div>
+				{
+					error && error.message && typeof error.message === 'string' ?
+						<p className={`error error-${error.type}`}>
+							{error.message}
+						</p> :
+						error && typeof error === 'string' ?
+							<p>{error}</p> : null
+				}
+			</Form>
+		)}
+	</Formik>
 );
 
 LoginForm.propTypes = {
-    error: PropTypes.any,
-    onSubmit: PropTypes.func,
-    notifications: PropTypes.string,
-    forgotModal: PropTypes.bool,
-    setForgotModal: PropTypes.func,
-    forgotPassword: PropTypes.func
+	error: PropTypes.any,
+	onSubmit: PropTypes.func,
+	notifications: PropTypes.string,
+	forgotModal: PropTypes.bool,
+	showPassword: PropTypes.bool,
+	setForgotModal: PropTypes.func,
+	forgotPassword: PropTypes.func,
+	setShowPassword: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
-    error: state.authReducer.error,
-    notifications: state.authReducer.notifications
+	error: state.auth.error,
+	notifications: state.auth.notifications
 });
 
 const enhance = compose(
-    connect(mapStateToProps),
-    withState('forgotModal', 'setForgotModal', false),
-    withState('showPassword', 'setShowPassword', false),
+	connect(mapStateToProps),
+	withState('forgotModal', 'setForgotModal', false),
+	withState('showPassword', 'setShowPassword', false),
 );
 export default enhance(LoginForm);
